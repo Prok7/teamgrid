@@ -1,0 +1,8 @@
+{
+  "name": "wapi/apiexception-plugin",
+  "description": "WApi/ApiException plugin",
+  "type": "october-plugin",
+  "require": {
+    "composer/installers": "~1.0"
+  }
+}

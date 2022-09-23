@@ -1,0 +1,33 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    id:
+        label: ID
+        disabled: true
+        
+    project_id:
+        label: Project Id
+        span: left
+
+    planned_time:
+        span: right
+        label: Planned Time
+        placeholder: 00:00
+
+    text: 
+        label: Text
+
+    planned_start:
+        label: Planned Start
+        default: now
+        type: datepicker
+        
+    planned_end:
+        type: datepicker
+        label: Planned End
+
+    deadline:
+        type: datepicker
+        label: deadline
