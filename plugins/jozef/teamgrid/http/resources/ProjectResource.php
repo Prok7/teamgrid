@@ -7,7 +7,7 @@
             return [
                 "id" => $this->id,
                 "title" => $this->title,
-                "status" => $this->status,
+                "completed" => $this->completed,
                 "created_at" => $this->created_at,
                 "updated_at" => $this->updated_at
             ];

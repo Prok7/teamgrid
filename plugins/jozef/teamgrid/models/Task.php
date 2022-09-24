@@ -2,6 +2,7 @@
 
 use Model;
 use Jozef\Teamgrid\Models\Project;
+use Jozef\Teamgrid\Models\TimeEntry;
 
 /**
  * task Model
@@ -24,12 +25,12 @@ class Task extends Model
      * @var array Fillable fields
      */
     protected $fillable = [
-        "project_id",
         "planned_start",
         "planned_end",
         "planned_time",
         "deadline",
-        "text"
+        "title",
+        "completed"
     ];
 
     /**
@@ -72,7 +73,9 @@ class Task extends Model
      * @var array Relations
      */
     public $hasOne = [];
-    public $hasMany = [];
+    public $hasMany = [
+        "time_entries" => [TimeEntry::class, "key" => "task_id"]
+    ];
     public $hasOneThrough = [];
     public $hasManyThrough = [];
     public $belongsTo = [

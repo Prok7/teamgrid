@@ -19,4 +19,16 @@
             
             return new ProjectResource($project);
         }
+
+        function show() {
+            $completed = get("completed");
+            $projects = Project::all()
+                ->when($completed, function ($query, $completed) {
+                    return $query->where("completed", $completed);
+                }, function ($query) {
+                    return $query;
+                });
+                
+            return ProjectResource::collection($projects);
+        }
     }

@@ -2,3 +2,4 @@
     - First version of teamgrid
     - create_projects_table.php
     - create_tasks_table.php
+    - create_time_entries_table.php

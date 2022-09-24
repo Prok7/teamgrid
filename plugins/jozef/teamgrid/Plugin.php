@@ -41,7 +41,7 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-        $this->app["router"]->aliasMiddleware("apiException", ApiExceptionMiddleware::class);
+
     }
 
     /**
@@ -82,7 +82,8 @@ class Plugin extends PluginBase
      */
     public function registerNavigation()
     {
-
+        return []; // Remove this line to activate
+        
         return [
             'teamgrid' => [
                 'label'       => 'Teamgrid',
@@ -90,20 +91,6 @@ class Plugin extends PluginBase
                 'icon'        => 'icon-leaf',
                 'permissions' => ['jozef.teamgrid.*'],
                 'order'       => 500,
-                'sideMenu'    => [
-                    "projects" => [
-                        'label'       => 'Projects',
-                        'url'         => Backend::url('jozef/teamgrid/projects'),
-                        'icon'        => 'icon-leaf',
-                        'permissions' => ['jozef.teamgrid.*'],
-                    ],
-                    "tasks" => [
-                        'label'       => 'Tasks',
-                        'url'         => Backend::url('jozef/teamgrid/tasks'),
-                        'icon'        => 'icon-leaf',
-                        'permissions' => ['jozef.teamgrid.*'],
-                    ]
-                ]
             ],
         ];
     }

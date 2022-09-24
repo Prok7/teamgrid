@@ -25,7 +25,7 @@ class Project extends Model
      */
     protected $fillable = [
         "title",
-        "status"
+        "completed"
     ];
 
     /**

@@ -11,12 +11,14 @@ class CreateTasksTable extends Migration
         Schema::create('jozef_teamgrid_tasks', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer("project_id");
-            $table->string("text");
-            $table->timestamp("planned_start")->nullable();
-            $table->timestamp("planned_end")->nullable();
-            $table->string("planned_time")->nullable();
-            $table->timestamp("deadline")->nullable();
+            $table->integer("project_id")->index();
+            $table->string("title");
+            $table->dateTime("planned_start")->nullable();
+            $table->dateTime("planned_end")->nullable();
+            $table->integer("planned_time")->nullable();
+            $table->dateTime("deadline")->nullable();
+            $table->boolean("tracking")->default(false);
+            $table->boolean("completed")->default("false");
             $table->timestamps();
         });
     }

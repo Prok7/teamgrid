@@ -10,9 +10,9 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('jozef_teamgrid_projects', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('id');
+            $table->increments('id')->index();
             $table->string("title");
-            $table->string("status");
+            $table->boolean("completed")->default("false");
             $table->timestamps();
         });
     }
