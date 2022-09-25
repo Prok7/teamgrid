@@ -1,8 +1,9 @@
 <?php namespace Jozef\Teamgrid;
 
 use Backend;
+use Jozef\Teamgrid\Models\Task;
 use System\Classes\PluginBase;
-use WApi\ApiException\Http\Middlewares\ApiExceptionMiddleware;
+use RainLab\User\Models\User;
 
 /**
  * teamgrid Plugin Information File
@@ -41,7 +42,11 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-
+        User::extend(function($model) {
+            $model->hasMany = [
+                "tasks" => [Task::class, "key" => "user_id"]
+            ];
+        });
     }
 
     /**

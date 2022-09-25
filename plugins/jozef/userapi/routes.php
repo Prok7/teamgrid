@@ -4,7 +4,7 @@
     use Jozef\Userapi\Http\Controllers\ResetPassController;
     use Jozef\Userapi\Http\Controllers\UserController;
 
-    Route::group(["prefix" => "api"], function() {
+    Route::group(["prefix" => "api", "middleware" => "api"], function() {
 
         // routes that need authentication (email and password)
         Route::group([

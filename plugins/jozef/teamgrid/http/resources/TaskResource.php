@@ -3,6 +3,7 @@
     use Illuminate\Http\Resources\Json\JsonResource;
     use Jozef\Teamgrid\Http\Resources\ProjectResource;
     use Jozef\Teamgrid\Http\Resources\TimeEntryResource;
+    use Jozef\Userapi\Http\Resources\UserResource;
 
     class TaskResource extends JsonResource {
 
@@ -21,6 +22,7 @@
                 "deadline" => $this->deadline,
                 "tracking" => $this->tracking,
                 "tracked_seconds" => $totalSeconds,
+                "user" => new UserResource($this->user),
                 "project" => new ProjectResource($this->project),
                 "time_entries" => TimeEntryResource::collection($this->time_entries)
             ];

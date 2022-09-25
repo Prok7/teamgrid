@@ -8,9 +8,19 @@
 
     class TimeEntryController {
 
+        // compare logged user with task user
+        private function compareUsers($task) {
+            $logged_user = auth()->userOrFail();
+
+            if (!$logged_user->is($task->user)) {
+                throw new Exception("This task doesn't belong to logged user");
+            }
+        }
+
         // start time tracking on task
         function startTracking($task_id) {
             $task = Task::findOrFail($task_id);
+            $this->compareUsers($task);
 
             if ($task->tracking == false) {
                 $task->tracking = true;
@@ -30,6 +40,7 @@
         // stop time tracking on task
         function stopTracking($task_id) {
             $task = Task::findOrFail($task_id);
+            $this->compareUsers($task);
 
             if ($task->tracking) {
                 $task->tracking = false;
@@ -49,7 +60,8 @@
         // manual-create time entry
         function create($task_id) {
             if (post("end_time")) {
-                Task::findOrFail($task_id);
+                $task = Task::findOrFail($task_id);
+                $this->compareUsers($task);
 
                 $timeEntry = new TimeEntry;
                 $timeEntry->task_id = $task_id;
@@ -65,6 +77,8 @@
 
         function edit($id) {
             $timeEntry = TimeEntry::findOrFail($id);
+            $this->compareUsers($timeEntry->task);
+
             $timeEntry->fill(post());
             $timeEntry->tracked_seconds = $timeEntry->start_time->diffInSeconds($timeEntry->end_time);
             $timeEntry->save();

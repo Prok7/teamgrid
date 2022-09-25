@@ -12,6 +12,7 @@ class CreateTasksTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer("project_id")->index();
+            $table->integer("user_id")->index();
             $table->string("title");
             $table->dateTime("planned_start")->nullable();
             $table->dateTime("planned_end")->nullable();

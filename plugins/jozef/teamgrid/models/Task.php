@@ -3,6 +3,7 @@
 use Model;
 use Jozef\Teamgrid\Models\Project;
 use Jozef\Teamgrid\Models\TimeEntry;
+use RainLab\User\Models\User;
 
 /**
  * task Model
@@ -79,7 +80,8 @@ class Task extends Model
     public $hasOneThrough = [];
     public $hasManyThrough = [];
     public $belongsTo = [
-        "project" => [Project::class, "key" => "project_id"]
+        "project" => [Project::class, "key" => "project_id"],
+        "user" => [User::class, "key" => "user_id"]
     ];
     public $belongsToMany = [];
     public $morphTo = [];
