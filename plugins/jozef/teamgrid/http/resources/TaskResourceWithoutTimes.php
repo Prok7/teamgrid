@@ -1,11 +1,10 @@
 <?php
     namespace Jozef\Teamgrid\Http\Resources;
     use Illuminate\Http\Resources\Json\JsonResource;
-    use Jozef\Userapi\Http\Resources\UserResource;
-    use Jozef\Teamgrid\Http\Resources\TimeEntryResource;
     use Jozef\Teamgrid\Http\Resources\ProjectResource;
+    use Jozef\Userapi\Http\Resources\UserResource;
 
-    class TaskResource extends JsonResource {
+    class TaskResourceWithoutTimes extends JsonResource {
 
         function toArray($request) {
             $totalSeconds = $this->time_entries()->sum("tracked_seconds");
@@ -23,8 +22,7 @@
                 "tracking" => $this->tracking,
                 "tracked_seconds" => $totalSeconds,
                 "user" => new UserResource($this->user),
-                "project" => new ProjectResource($this->project),
-                "time_entries" => TimeEntryResource::collection($this->time_entries)
+                "project" => new ProjectResource($this->project)
             ];
         }
 

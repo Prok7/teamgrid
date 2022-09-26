@@ -22,19 +22,19 @@
             $task = Task::findOrFail($task_id);
             $this->compareUsers($task);
 
-            if ($task->tracking == false) {
-                $task->tracking = true;
-                $task->save();
-    
-                $timeEntry = new TimeEntry;
-                $timeEntry->start_time = now();
-                $timeEntry->task_id = $task_id;
-                $timeEntry->save();
-
-                return new TimeEntryResource($timeEntry);
-            } else {
+            if ($task->tracking) {
                 throw new Exception("Task is already being tracked");
             }
+
+            $task->tracking = true;
+            $task->save();
+
+            $timeEntry = new TimeEntry;
+            $timeEntry->start_time = now();
+            $timeEntry->task_id = $task_id;
+            $timeEntry->save();
+
+            return new TimeEntryResource($timeEntry);
         }
 
         // stop time tracking on task
@@ -42,37 +42,35 @@
             $task = Task::findOrFail($task_id);
             $this->compareUsers($task);
 
-            if ($task->tracking) {
-                $task->tracking = false;
-                $task->save();
-    
-                $timeEntry = $task->time_entries->last();
-                $timeEntry->end_time = now();
-                $timeEntry->tracked_seconds = $timeEntry->start_time->diffInSeconds($timeEntry->end_time);
-                $timeEntry->save();
-
-                return new TimeEntryResource($timeEntry);
-            } else {
+            if (!$task->tracking) {
                 throw new Exception("Task hasn't started tracking yet");
             }
+
+            $task->tracking = false;
+            $task->save();
+
+            $timeEntry = $task->time_entries->last();
+            $timeEntry->end_time = now();
+            $timeEntry->save();
+
+            return new TimeEntryResource($timeEntry);
         }
 
         // manual-create time entry
         function create($task_id) {
-            if (post("end_time")) {
-                $task = Task::findOrFail($task_id);
-                $this->compareUsers($task);
-
-                $timeEntry = new TimeEntry;
-                $timeEntry->task_id = $task_id;
-                $timeEntry->fill(post());
-                $timeEntry->tracked_seconds = $timeEntry->start_time->diffInSeconds($timeEntry->end_time);
-                $timeEntry->save();
-    
-                return new TimeEntryResource($timeEntry);
-            } else {
+            if (!post("end_time")) {
                 throw new Exception("You need to define start_time and end_time");
             }
+            
+            $task = Task::findOrFail($task_id);
+            $this->compareUsers($task);
+
+            $timeEntry = new TimeEntry;
+            $timeEntry->task_id = $task_id;
+            $timeEntry->fill(post());
+            $timeEntry->save();
+
+            return new TimeEntryResource($timeEntry);
         }
 
         function edit($id) {
@@ -80,13 +78,12 @@
             $this->compareUsers($timeEntry->task);
 
             $timeEntry->fill(post());
-            $timeEntry->tracked_seconds = $timeEntry->start_time->diffInSeconds($timeEntry->end_time);
             $timeEntry->save();
 
             return new TimeEntryResource($timeEntry);
         }
 
-        function show($task_id) {
+        function index($task_id) {
             $task = Task::findOrFail($task_id);
             $timeEntries = $task->time_entries;
             return TimeEntryResource::collection($timeEntries);

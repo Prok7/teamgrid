@@ -2,6 +2,7 @@
     namespace Jozef\Teamgrid\Http\Controllers;
     use Jozef\Teamgrid\Models\Task;
     use Jozef\Teamgrid\Http\Resources\TaskResource;
+    use Jozef\Teamgrid\Http\Resources\TaskResourceWithoutTimes;
     use Jozef\Teamgrid\Models\Project;
     use RainLab\User\Models\User;
     use Exception;
@@ -25,7 +26,7 @@
             $task->fill(post());
             $task->save();
 
-            return new TaskResource($task);
+            return new TaskResourceWithoutTimes($task);
         }
 
         function edit($id) {
@@ -37,18 +38,18 @@
             return new TaskResource($task);
         }
 
-        function show($project_id) {
+        function index($project_id) {
             $project = Project::findOrFail($project_id);
             $completed = get("completed");
 
             $tasks = $project->tasks()
                 ->when($completed, function($query, $completed) {
                     $query->where("completed", $completed);
-                }, function() {
+                }, function($query) {
                     $query;
                 })
                 ->get();
             
-            return TaskResource::collection($tasks);
+            return TaskResourceWithoutTimes::collection($tasks);
         }
     }

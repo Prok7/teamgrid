@@ -20,7 +20,7 @@
             return new ProjectResource($project);
         }
 
-        function show() {
+        function index() {
             $completed = get("completed");
             $projects = Project::all()
                 ->when($completed, function ($query, $completed) {
