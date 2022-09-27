@@ -79,4 +79,10 @@ class TimeEntry extends Model
     public $morphMany = [];
     public $attachOne = [];
     public $attachMany = [];
+
+    // events
+    public function beforeSave() {
+        $this->tracked_seconds = $this->start_time->diffInSeconds($this->end_time);
+    }
+    
 }

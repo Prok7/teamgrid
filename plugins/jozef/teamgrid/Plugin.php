@@ -1,8 +1,8 @@
 <?php namespace Jozef\Teamgrid;
 
-use Jozef\Teamgrid\Classes\Extend\TimeEntryExtend;
 use Jozef\Teamgrid\Classes\Extend\UserExtend;
 use System\Classes\PluginBase;
+use Jozef\Teamgrid\Http\Webhooks\AllHooks;
 
 /**
  * teamgrid Plugin Information File
@@ -22,6 +22,6 @@ class Plugin extends PluginBase
     public function boot()
     {
         UserExtend::addTasksRelation();
-        TimeEntryExtend::hookOnBeforeSave();
+        AllHooks::registerHooks();
     }
 }

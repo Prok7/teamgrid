@@ -8,13 +8,6 @@
     use Exception;
 
     class TaskController {
-        private function compareUsers($task) {
-            $logged_user = auth()->userOrFail();
-
-            if (!$logged_user->is($task->user)) {
-                throw new Exception("This task doesn't belong to logged user");
-            }
-        }
 
         function create($project_id, $user_id) {
             Project::findOrFail($project_id);
@@ -31,7 +24,6 @@
 
         function edit($id) {
             $task = Task::findOrFail($id);
-            $this->compareUsers($task);
             $task->fill(post());
             $task->save();
 

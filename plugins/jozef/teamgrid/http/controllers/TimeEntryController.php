@@ -2,25 +2,16 @@
     namespace Jozef\Teamgrid\Http\Controllers;
 
     use Exception;
+    use Event;
     use Jozef\Teamgrid\Http\Resources\TimeEntryResource;
     use Jozef\Teamgrid\Models\TimeEntry;
     use Jozef\Teamgrid\Models\Task;
 
     class TimeEntryController {
 
-        // compare logged user with task user
-        private function compareUsers($task) {
-            $logged_user = auth()->userOrFail();
-
-            if (!$logged_user->is($task->user)) {
-                throw new Exception("This task doesn't belong to logged user");
-            }
-        }
-
         // start time tracking on task
         function startTracking($task_id) {
             $task = Task::findOrFail($task_id);
-            $this->compareUsers($task);
 
             if ($task->tracking) {
                 throw new Exception("Task is already being tracked");
@@ -34,13 +25,13 @@
             $timeEntry->task_id = $task_id;
             $timeEntry->save();
 
+            Event::fire("timeEntry.startedTracking");
             return new TimeEntryResource($timeEntry);
         }
 
         // stop time tracking on task
         function stopTracking($task_id) {
             $task = Task::findOrFail($task_id);
-            $this->compareUsers($task);
 
             if (!$task->tracking) {
                 throw new Exception("Task hasn't started tracking yet");
@@ -53,6 +44,7 @@
             $timeEntry->end_time = now();
             $timeEntry->save();
 
+            Event::fire("timeEntry.stoppedTracking");
             return new TimeEntryResource($timeEntry);
         }
 
@@ -63,7 +55,6 @@
             }
             
             $task = Task::findOrFail($task_id);
-            $this->compareUsers($task);
 
             $timeEntry = new TimeEntry;
             $timeEntry->task_id = $task_id;
@@ -75,7 +66,6 @@
 
         function edit($id) {
             $timeEntry = TimeEntry::findOrFail($id);
-            $this->compareUsers($timeEntry->task);
 
             $timeEntry->fill(post());
             $timeEntry->save();
