@@ -1,9 +1,8 @@
-<?php
-    namespace Jozef\Userapi\Http\Controllers;
+<?php namespace LibUser\Userapi\Http\Controllers;
 
     use Illuminate\Support\Facades\Mail;
     use RainLab\User\Facades\Auth;
-    use Jozef\Userapi\Http\Resources\UserResource;
+    use LibUser\Userapi\Http\Resources\UserResource;
     use RainLab\User\Models\User;
     
     // register new user
@@ -40,7 +39,7 @@
                 "activation_code" => $user->activation_code
             ];
 
-            Mail::send("jozef.userapi::mail.activate", $params, function($message) use ($user) {
+            Mail::send("libuser.userapi::mail.activate", $params, function($message) use ($user) {
                 $message->to($user->email);
                 $message->subject("Activate account");
             });

@@ -1,8 +1,8 @@
 <?php
-    use Jozef\Userapi\Http\Controllers\RegisterController;
-    use Jozef\Userapi\Http\Controllers\JWTController;
-    use Jozef\Userapi\Http\Controllers\ResetPassController;
-    use Jozef\Userapi\Http\Controllers\UserController;
+    use LibUser\Userapi\Http\Controllers\RegisterController;
+    use LibUser\Userapi\Http\Controllers\JWTController;
+    use LibUser\Userapi\Http\Controllers\ResetPassController;
+    use LibUser\Userapi\Http\Controllers\UserController;
 
     Route::group(["prefix" => "api", "middleware" => "api"], function() {
 

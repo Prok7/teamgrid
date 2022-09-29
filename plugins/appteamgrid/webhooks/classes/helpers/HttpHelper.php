@@ -10,7 +10,7 @@ class HttpHelper {
 
         $modelClass::extend(function($model) use ($modelResource, $eventType) {
             $model->bindEvent("model.$eventType", function() use ($model, $modelResource) {
-                $url = config("jozef.teamgrid::config.webhook_url");
+                $url = config("appteamgrid.webhooks::config.webhook_url");
                 Http::post($url, new $modelResource($model));
             });
         });

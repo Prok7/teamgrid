@@ -1,4 +1,4 @@
-<?php namespace Jozef\Userapi\Models;
+<?php namespace LibUser\Userapi\Models;
 
 use RainLab\User\Models\User as RainlabUser;
 use Tymon\JWTAuth\Contracts\JWTSubject;

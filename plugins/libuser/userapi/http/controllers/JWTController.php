@@ -1,5 +1,4 @@
-<?php
-    namespace Jozef\Userapi\Http\Controllers;
+<?php namespace LibUser\Userapi\Http\Controllers;
 
     // jwt controller
     class JWTController {

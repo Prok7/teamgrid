@@ -1,7 +1,6 @@
-<?php
-    namespace Jozef\Userapi\Http\Controllers;
+<?php namespace LibUser\Userapi\Http\Controllers;
 
-    use Jozef\Userapi\Http\Resources\UserResource;
+    use LibUser\Userapi\Http\Resources\UserResource;
     use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
     use RainLab\User\Models\User;
 

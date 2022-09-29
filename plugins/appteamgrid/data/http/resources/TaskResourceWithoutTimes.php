@@ -2,7 +2,7 @@
 
     use Illuminate\Http\Resources\Json\JsonResource;
     use AppTeamgrid\Data\Http\Resources\ProjectResource;
-    use Jozef\Userapi\Http\Resources\UserResource;
+    use LibUser\Userapi\Http\Resources\UserResource;
 
     class TaskResourceWithoutTimes extends JsonResource {
 

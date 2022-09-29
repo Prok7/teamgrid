@@ -1,4 +1,4 @@
-<?php namespace Jozef\Userapi\Updates;
+<?php namespace LibUser\Userapi\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;

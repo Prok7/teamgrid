@@ -1,7 +1,7 @@
 <?php namespace AppTeamgrid\Data\Http\Resources;
 
     use Illuminate\Http\Resources\Json\JsonResource;
-    use Jozef\Userapi\Http\Resources\UserResource;
+    use LibUser\Userapi\Http\Resources\UserResource;
     use AppTeamgrid\Data\Http\Resources\TimeEntryResource;
     use AppTeamgrid\Data\Http\Resources\ProjectResource;
 

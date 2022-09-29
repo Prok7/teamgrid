@@ -16,7 +16,7 @@
         'providers' => [
             'users' => [
                 'driver' => 'eloquent',
-                'model' => '\Jozef\Userapi\Models\User',
+                'model' => '\LibUser\Userapi\Models\User',
             ],
         ]
     ];

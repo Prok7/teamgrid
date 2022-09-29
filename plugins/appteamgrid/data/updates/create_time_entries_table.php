@@ -1,4 +1,4 @@
-<?php namespace Jozef\Teamgrid\Updates;
+<?php namespace AppTeamgrid\Data\Updates;
 
 use Schema;
 use October\Rain\Database\Schema\Blueprint;
